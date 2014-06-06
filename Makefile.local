@@ -1,0 +1,3 @@
+# Makefile.local
+CM := puppet
+CM_VERSION := 3.6.1
