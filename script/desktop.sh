@@ -23,5 +23,5 @@ if [[ $DISTRIB_RELEASE == 12.04 ]]; then
     # configure_ubuntu1204_autologin
     sed -i 's/^NODM_USER.*/NODM_USER=vagrant/g' /etc/default/nodm
     sed -i 's/^NODM_ENABLED*/NODM_ENABLED=true/g' /etc/default/nodm
-    apt-get install -y gksu 
+    apt-get install -y gksu network-manager
 fi
