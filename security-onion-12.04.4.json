@@ -1,9 +1,5 @@
 {
   "variables": {
-    "cm": "nocm",
-    "cm_version": "",
-    "cm_set_path": "",
-    "cleanup_pause": "",
     "iso_url": "http://releases.ubuntu.com/12.04/ubuntu-12.04.4-alternate-amd64.iso",
     "iso_checksum": "73a758a2353f21e3016be8135411342a605bccac"
   },
@@ -38,25 +34,20 @@
     "shutdown_command": "echo 'vagrant'|sudo -S shutdown -P now",
     "disk_size": 10140,
     "vboxmanage": [
-      ["modifyvm", "{{.Name}}", "--memory", "512"],
-      ["modifyvm", "{{.Name}}", "--cpus", "1"]
+      ["modifyvm", "{{.Name}}", "--memory", "1024"],
+      ["modifyvm", "{{.Name}}", "--cpus", "2"]
     ]
   }],
   "provisioners": [{
     "type": "shell",
-    "environment_vars": [
-      "CM={{user `cm`}}",
-      "CM_VERSION={{user `cm_version`}}",
-      "CM_SET_PATH={{user `cm_set_path`}}",
-      "CLEANUP_PAUSE={{user `cleanup_pause`}}"
-    ],
     "execute_command": "echo 'vagrant' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
     "scripts": [
       "script/kernel.sh",
+      "script/xfce.sh",
+      "script/login.sh",
       "script/security-onion.sh",
-      "script/desktop.sh",
       "script/vagrant.sh",
-      "script/sshd.sh",
+      "script/ssh.sh",
       "script/vmtool.sh",
       "script/cmtool.sh",
       "script/cleanup.sh"
@@ -66,6 +57,6 @@
     "type": "vagrant",
     "keep_input_artifact": false,
     "vagrantfile_template": "tpl/vagrantfile-ubuntu1204-desktop.tpl",
-    "output": "box/{{.Provider}}/security-onion-12.04.4_{{user `cm`}}-{{user `cm_version`}}.box"
+    "output": "box/virtualbox/security-onion-12.04.4_puppet_3.7.3.box"
   }]
 }
